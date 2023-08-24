@@ -4,12 +4,15 @@ from .models import Company, Employee
 
 
 class CanCreateCompany(permissions.BasePermission):
-    message = "You are not allowed to create companies"
+    message = "You are not allowed to perform this action, only superuse or staff can perform this action"
 
     def has_permission(self, request, view):
         if request.method in permissions.SAFE_METHODS:
             return True
         return request.user.is_superuser or request.user.is_staff
+    
+    def has_object_permission(self, request, view, obj):
+        return obj.user == request.user
 
 class IsSameCompany(permissions.BasePermission):
     message = "You are not allowed to create employees of other companies"

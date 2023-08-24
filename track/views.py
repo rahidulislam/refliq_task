@@ -15,6 +15,11 @@ class CompanyCreateListAPIView(generics.ListCreateAPIView):
         
         return serializer.save(user=self.request.user)
 
+class CompanyDetailUpdateDeleteAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Company.objects.all()
+    serializer_class = CompanySerializer
+    permission_classes = [permissions.IsAuthenticated, CanCreateCompany]
+    http_method_names = ['get', 'patch', 'delete']
 
 class EmployeeCreateListAPIView(generics.ListCreateAPIView):
     queryset = Employee.objects.all()
