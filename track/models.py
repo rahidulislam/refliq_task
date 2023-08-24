@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 # Create your models here.
 
 
@@ -58,3 +59,12 @@ class DeviceLog(models.Model):
 
     def __str__(self):
         return f"{self.device} - {self.check_out_date}"
+    
+    def clean(self):
+        if self.check_out_date and self.check_in_date and self.check_out_date > self.check_in_date:
+            raise ValidationError("Check-in date should be after check-out date")
+        
+    def save(self, *args, **kwargs):
+        self.clean()
+        return super().save(*args, **kwargs)
+
