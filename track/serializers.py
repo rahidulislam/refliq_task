@@ -4,17 +4,19 @@ from .models import Company, Employee, Device, DeviceLog
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
-        fields = '__all__'
+        fields = ('id','name', 'description',)
+
 
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
-        fields = ('company', 'job_title', 'department', )
+        fields = ('id','user','company', 'job_title', 'department', )
+
 
 class DeviceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Device
-        fields = '__all__'
+        fields = ('id','company', 'assigned_to', 'status', 'asset_type', 'model', 'serial_number', )
 
 class DeviceLogSerializer(serializers.ModelSerializer):
     class Meta:

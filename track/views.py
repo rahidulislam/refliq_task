@@ -10,11 +10,18 @@ class CompanyCreateListAPIView(generics.ListCreateAPIView):
     serializer_class = CompanySerializer
     permission_classes = [permissions.IsAuthenticated, CanCreateCompany]
 
+    def perform_create(self, serializer):
+        
+        return serializer.save(user=self.request.user)
+
 
 class EmployeeCreateListAPIView(generics.ListCreateAPIView):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
     permission_classes = [permissions.IsAuthenticated, IsSameCompany]
 
-    def perform_create(self, serializer):
-        return serializer.save(user=self.request.user)
+class DeviceCreateListAPIView(generics.ListCreateAPIView):
+    queryset = Device.objects.all()
+    serializer_class = DeviceSerializer
+    permission_classes = [permissions.IsAuthenticated, IsSameCompany]
+

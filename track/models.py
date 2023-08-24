@@ -4,14 +4,19 @@ from django.contrib.auth.models import User
 
 
 class Company(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='%(class)s_owner')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='%(class)s_owner')
     name = models.CharField(max_length=100)
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
+        print('%(class)s_owner')
         return self.name
+
+    def cname(self):
+        data = self.user
+        return data
 
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='%(class)s_employee')
