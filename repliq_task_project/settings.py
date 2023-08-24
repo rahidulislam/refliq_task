@@ -46,7 +46,7 @@ THIRD_PARTY_APPS = [
     'drf_spectacular_sidecar',
 ]
 
-LOCAL_APPS=[
+LOCAL_APPS = [
     'account',
     'track'
 ]
